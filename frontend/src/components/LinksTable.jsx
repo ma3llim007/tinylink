@@ -27,7 +27,7 @@ const LinksTable = ({ data, loadData }) => {
                     <thead>
                         <tr className="bg-gray-700">
                             <th className="p-2 border">Short Code</th>
-                            <th className="p-2 border">Short Url</th>
+                            <th className="p-2 border">Target Url</th>
                             <th className="p-2 border">Clicks</th>
                             <th className="p-2 border">Last Clicked</th>
                             <th className="p-2 border">Actions</th>
@@ -41,7 +41,7 @@ const LinksTable = ({ data, loadData }) => {
                                         {link.shortCode}
                                     </Link>
                                 </td>
-                                <td className="p-2 max-w-[234px] wrap-break-word border">{link.shortCode}</td>
+                                <td className="p-2 max-w-[234px] wrap-break-word border">{link.targetUrl}</td>
                                 <td className="p-2 border">{link.totalClicks}</td>
                                 <td className="p-2 border">{link.lastClickedAt ? new Date(link.lastClickedAt).toLocaleString() : "—"}</td>
                                 <td className="p-2 space-x-2 border">

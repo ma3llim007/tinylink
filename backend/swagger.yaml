@@ -1,0 +1,154 @@
+openapi: 3.0.0
+info:
+    title: TinyLink API
+    description: URL Shortener Backend API for creating, managing, and tracking short links.
+    version: 1.0.0
+
+servers:
+    - url: https://tinylink-3obc.onrender.com
+      description: server
+
+paths:
+    /healthz:
+        get:
+            summary: Health check endpoint
+            responses:
+                "200":
+                    description: Healthy
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    ok:
+                                        type: boolean
+                                    version:
+                                        type: string
+
+    /api/links:
+        post:
+            summary: Create a short link
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            required:
+                                - targetUrl
+                            properties:
+                                code:
+                                    type: string
+                                    example: "abc123"
+                                targetUrl:
+                                    type: string
+                                    example: "https://example.com"
+            responses:
+                "201":
+                    description: Link created successfully
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/LinkResponse"
+                "400":
+                    description: Invalid input
+                "409":
+                    description: Code already exists
+
+        get:
+            summary: List all short links
+            responses:
+                "200":
+                    description: Array of links
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: "#/components/schemas/Link"
+
+    /api/links/{code}:
+        get:
+            summary: Get link stats by short code
+            parameters:
+                - name: code
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      example: abc123
+            responses:
+                "200":
+                    description: Link stats
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/LinkResponse"
+                "404":
+                    description: Link not found
+
+        delete:
+            summary: Delete a short link
+            parameters:
+                - name: code
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      example: abc123
+            responses:
+                "200":
+                    description: Link deleted successfully
+                "404":
+                    description: Link not found
+
+    /{code}:
+        get:
+            summary: Redirect to the original URL
+            parameters:
+                - name: code
+                  in: path
+                  required: true
+                  schema:
+                      type: string
+                      example: abc123
+            responses:
+                "302":
+                    description: Redirect to target URL
+                "404":
+                    description: Code not found
+
+components:
+    schemas:
+        Link:
+            type: object
+            properties:
+                shortCode:
+                    type: string
+                    example: "abc123"
+                targetUrl:
+                    type: string
+                    example: "https://example.com"
+                totalClicks:
+                    type: number
+                    example: 10
+                lastClickedAt:
+                    type: string
+                    format: date-time
+                    example: "2025-01-10T12:45:00Z"
+                createdAt:
+                    type: string
+                    format: date-time
+                updatedAt:
+                    type: string
+                    format: date-time
+
+        LinkResponse:
+            type: object
+            properties:
+                status:
+                    type: number
+                data:
+                    $ref: "#/components/schemas/Link"
+                message:
+                    type: string

@@ -9,12 +9,12 @@ const Header = () => {
             <nav>
                 <ul className="flex items-center gap-6">
                     <li>
-                        <a href="#" className="text-base text-gray-200 hover:text-white transition-colors duration-75">
+                        <a target="_blank" href="https://github.com/ma3llim007/tinylink" className="text-base text-gray-200 hover:text-white transition-colors duration-75">
                             Github Code
                         </a>
                     </li>
                     <li>
-                        <a href="#" className="text-base text-gray-200 hover:text-white transition-colors duration-75">
+                        <a href={`${import.meta.env.VITE_BACKEND_URL}/api-docs`} className="text-base text-gray-200 hover:text-white transition-colors duration-75">
                             API Documentation
                         </a>
                     </li>
