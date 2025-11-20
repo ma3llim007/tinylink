@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
-import linkScheme from "../../../backend/src/models/linkScheme";
 import Loader from "../components/Loading";
 import LinksTable from "../components/LinksTable";
 import LinkForm from "../components/LinkForm";

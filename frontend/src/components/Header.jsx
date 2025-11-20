@@ -14,7 +14,7 @@ const Header = () => {
                         </a>
                     </li>
                     <li>
-                        <a href={`${import.meta.env.VITE_BACKEND_URL}/api-docs`} className="text-base text-gray-200 hover:text-white transition-colors duration-75">
+                        <a target="_blank" href={`${import.meta.env.VITE_BACKEND_URL}/api-docs`} className="text-base text-gray-200 hover:text-white transition-colors duration-75">
                             API Documentation
                         </a>
                     </li>
